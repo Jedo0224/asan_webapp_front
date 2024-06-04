@@ -1,0 +1,347 @@
+.firstEval div{
+    display: flex;
+    flex-direction: column;
+}
+
+.subTitle{
+    margin-top:20px;
+    font-size:20px;
+}
+.modifyTitle{
+    text-align: center;
+    font-size: 30px;
+    margin-top:20px;
+}
+.modify{
+    display:flex;
+    justify-content: center;
+    min-width: 500px;
+}
+
+.patient{
+    display:table;
+}
+
+.patient1first{
+    display:table-cell;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.patient2first{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: #f2f2F2;
+}
+
+.patient2first>*{
+    font-size:100%;
+    width:350px;
+    background-color: #f2f2F2;
+    height: 100%;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+}
+
+.patientRow{
+    display:table-row;
+}
+
+.patient1{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.patient2{
+    display:table-cell;
+    border-bottom:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: #f2f2F2;
+}
+
+.patient2>*{
+    font-size:100%;
+    width:350px;
+    height: 100%;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+    background-color: #f2f2F2;
+}
+
+.patient3>*{
+    font-size:100%;
+    width:350px;
+    height: 100%;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+    background-color: rgb(250, 171, 171);
+}
+
+.patient3{
+    display:table-cell;
+    border-bottom:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: rgb(250, 171, 171);
+}
+
+.modifyDate{
+    display: table;
+}
+
+.guard{
+    display:table;
+}
+
+.manage{
+    display:table;
+}
+
+
+.firstEval, .firstEval>*{
+    width:350px;
+    height:100px;
+    background-color: #f2f2F2;
+    margin-bottom: 10px;
+}
+
+.modifySubmitDiv{
+    display: flex;
+    justify-content: space-between;
+}
+
+.modifySubmit{
+    margin-bottom: 20px;
+    margin-top:20px;
+    border:0;
+    height:40px;
+    width: 49%;
+    background-color:#611DF2;
+    color:white;
+}
+
+.modifyDiv{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width:500px;
+}
+
+.textareaDiv{
+    width:500px;
+    height:100px;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+
+.evalTextarea{
+    outline:none;
+    resize:none;
+    width: 480px;
+    height:100px;
+    padding: 10px;
+    border:0;
+    margin:0;
+    background-color: #f2f2F2;
+}
+
+.date2>.react-datepicker__input-container{
+    border: 0;
+    margin: 0;
+    width: 360px;
+    height: 40px;
+}
+.date2first>.react-datepicker__input-container{
+    border: 0;
+    margin: 0;
+    width: 360px;
+    height: 40px;
+}
+
+#start_date, #end_date, #manage_date, #birth_date{
+    width:350px;
+    margin:0;
+    height: 40px;
+    padding:0 0 0 10px;
+    border: 0;
+    background-color: #f2f2F2;
+    outline: none;
+    font-size:100%;
+}
+
+.dateRow{
+    display:table-row;
+}
+
+.date1first{
+    display:table-cell;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.date2first{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: #f2f2F2;
+}
+
+.date1{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.date2{
+    display:table-cell;
+    border-bottom:1px solid black;
+    background-color: #f2f2F2;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+}
+
+.patientAddress{
+    display:table-cell;
+    border-bottom:1px solid black;
+    background-color: #f2f2F2;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+}
+
+.patientAddress>input{
+    position:relative;
+    float:left;
+    font-size:100%;
+    width:290px;
+    height: 40px;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+    background-color: #f2f2F2;
+}
+
+.patientAddress>button{
+    background-color: #611DF2;
+    color:white;
+    position: relative;
+    float: right;
+    height: 40px;
+    outline: none;
+    padding:0;
+    border:0;
+    width: 60px;
+    margin:0;
+}
+
+.patient3first{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: rgb(250, 171, 171);
+}
+
+.patient3first>*{
+    font-size:100%;
+    width:350px;
+    background-color: rgb(250, 171, 171);
+    height: 100%;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+}
+
+#input-file{
+    display: none;
+}
+
+.file-label{
+    background-color: #611DF2;
+    color:white;
+    height:100%;
+    width:60px;
+    text-align: center;
+    vertical-align: middle;
+    align-items : center;
+    display : flex;
+	justify-content : center;
+    font-size:100%;
+}
+
+.file2first{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: #f2f2F2;
+}
+
+.file-flex{
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.file-name{
+    margin:0 0 0 10px;
+    align-items : center;
+    display : flex;
+    overflow-x:auto;
+    height: 100%;
+    width:290px;
+}

@@ -1,0 +1,375 @@
+.main{
+    display:flex;
+    justify-content: center;
+    min-width: 1070px;
+}
+
+.count{
+    align-items: center;
+    display: flex;
+    margin:0 0 10px 10px;
+}
+
+.sideText{
+    text-align: center;
+}
+
+.search{
+    margin:10px 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.search>input{
+    outline: none;
+    padding:0 0 0 2px;
+    margin:0 5px 0 0;
+    height: 20px;
+    border:1px solid black;
+    width:165px;
+}
+
+#birth{
+    outline: none;
+    padding:0 0 0 2px;
+    margin:0 5px 0 0;
+    height: 20px;
+    border:1px solid black;
+    width:165px;
+}
+
+#start{
+    outline: none;
+    padding:0 0 0 2px;
+    margin:0 5px 0 0;
+    height: 20px;
+    border:1px solid black;
+    width:165px;
+}
+
+.search>button{
+    width:50px;
+    border:1px solid black;
+    background-color: #611DF2;
+    color:white;
+}
+
+#start{
+    margin:0 5px 0 0;
+    outline: none;
+    padding:0 0 0 2px;
+    height:20px;
+    border:1px solid black;
+}
+
+#birth{
+    margin:0 5px 0 0;
+    outline: none;
+    padding:0 0 0 2px;
+    height:20px;
+    border:1px solid black;
+}
+
+.side{
+    display:flex;
+    border: 1px solid black;
+    margin:0 10px 0 0;
+    width:110px;
+    height:300px;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.sideText, .sideButton{
+    margin:0 10px;
+}
+
+.sideButton>button{
+    width:100%;
+    height:50px;
+    margin-bottom:10px;
+    border: 0;
+    background-color:#611DF2;
+    color:white;
+}
+
+.react-datepicker__tab-loop{
+    position:absolute;
+}
+
+.user{
+    display:flex;
+    flex-direction: column;
+    height:calc(100vh - 70px);
+    width: 950px;
+}
+
+.register{
+    height:calc(100vh - 70px);
+    width: 950px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height:551px;
+}
+
+.registerCenter{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    overflow-y: auto;
+}
+
+.func{
+    display:flex;
+    flex-direction: column;
+}
+
+.under{
+    display:flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.checker{
+    margin-bottom: 10px;
+}
+.checker>button{
+    width:100px;
+    border:0;
+    margin:0 10px 0 0;
+    padding: 0;
+    height:30px;
+    background-color:#611DF2;
+    color:white;
+}
+
+.stateButton>button{
+    border:0;
+    margin:0 10px 10px 0;
+    padding: 0;
+    width:210px;
+    height: 30px;
+    background-color: #611DF2;
+    color:white;
+}
+
+.forCall{
+    height:20px;
+}
+
+.info{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart{
+    width:300px;
+    height:300px;
+}
+
+.aa{
+    text-align: center;
+}
+
+table, th, td{
+    border:1px solid black;
+    border-collapse: collapse;
+}
+
+.userTableDiv{
+    overflow-y: auto;
+    margin:0 5px;
+}
+
+.userTable{
+    width:100%;
+}
+
+.userTable th{
+    background-color: #f2f2f2;
+}
+
+.userTableBody{
+    text-align: center;
+}
+
+.stateButton{
+    display: flex;
+    flex-direction: column;
+    margin-top:10px;
+}
+
+.react-datepicker__day--outside-month {
+    visibility: hidden;
+}
+
+.regiInfo{
+    display: table;
+}
+
+.regiInfoRow{
+    display: table-row;
+}
+
+.regiInfo1first{
+    display:table-cell;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.regiInfo2first{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: #f2f2F2;
+}
+
+.regiInfo2first>*{
+    font-size:100%;
+    width:350px;
+    background-color: #f2f2F2;
+    height: 100%;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+}
+
+.regiInfo1{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.regiInfo2{
+    display:table-cell;
+    border-bottom:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+    background-color: #f2f2F2;
+}
+
+.regiInfo2>*{
+    font-size:100%;
+    width:350px;
+    height: 100%;
+    outline: none;
+    padding:0;
+    border:0;
+    margin:0 0 0 10px;
+    background-color: #f2f2F2;
+}
+
+.file-label-upload{
+    background-color: #611DF2;
+    color:white;
+    height:100%;
+    width:60px;
+    display: flex;
+    justify-content: center;
+    align-items : center;
+    margin:0;
+}
+
+.file-flex{
+    height: 100%;
+    width:360px;
+}
+
+.file-name{
+    align-items : center;
+    display : relative;
+    float:left;
+    overflow-x:auto;
+    height: 100%;
+    width:290px;
+    font-size:100%;
+}
+
+.regiSubmit{
+    border: 0;
+    margin:10px 0 0 0 ;
+    height: 40px;
+    background-color: #611DF2;
+    color:white;
+}
+
+.danger{
+    margin:30px 0 0 0;
+}
+
+.dangerList>li{
+    margin:0px;
+    padding: 0px;
+}
+
+.dangerList{
+    margin:10px 0 0 0;
+    padding:0 0 0 20px;
+}
+
+.dateRow{
+    display:table-row;
+}
+
+.date1{
+    display:table-cell;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:140px;
+    font-size:18px;
+}
+
+.date2{
+    display:table-cell;
+    border-bottom:1px solid black;
+    background-color: #f2f2F2;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+    width:350px;
+}
+
+.date2>.react-datepicker__input-container{
+    border: 0;
+    margin: 0;
+    width: 360px;
+    height: 40px;
+}
+
+@media print{
+    .side, .search, .under{display: none}
+    .userTableDiv{
+        overflow-y:visible;
+        margin:0;
+    }
+    .user{
+        border:0;
+        width:100%;
+    }
+    .stateNoPrint, .forCall{display: none;}
+
+    @page {margin:1.3cm 1.0cm  !important;}
+}

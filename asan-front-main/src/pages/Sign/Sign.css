@@ -1,0 +1,59 @@
+.sign{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+
+input::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.back{
+    width: 100vw;
+    height: 100vh;
+    background-color:#F2F2F2;
+}
+
+.elem{
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.elem>input, .elem>select{
+    width:200px;
+    height:40px;
+    margin:0;
+    border:0;
+    padding:0 0 0 4px;
+    background-color: #F2F2F2;
+    outline:none;
+    font-size:100%;
+}
+
+.discord{
+    font-size: 13px;
+}
+
+.signMargin{
+    display:flex;
+    flex-direction: column;
+    margin:20px 30px;
+}
+
+.signButton{
+    background-color: #611DF2;
+    color:white;
+    border: 0;
+    height:40px;
+    width: 48%;
+}
+
+.signButtonDiv{
+    display: flex;
+    justify-content: space-between;
+}

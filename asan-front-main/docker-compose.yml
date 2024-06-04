@@ -1,0 +1,9 @@
+version: "1.0"
+services:
+  front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8081:80

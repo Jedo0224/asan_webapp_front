@@ -1,0 +1,77 @@
+.cent{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:#611DF2;
+}
+
+.page{
+    display:flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.login{
+    display:flex;
+    flex-direction:column;
+    background-color: white;
+    padding:10px;
+    
+}
+.log-text{
+    margin-bottom: 10px;
+}
+.log-id{
+    border: 0;
+    width: 300px;
+  height: 50px;
+  font-size:15px;
+  background-color: #F2F2F2;
+  margin-bottom: 10px;
+}
+
+.log-id::placeholder{
+    color:#611DF2;
+}
+
+.log-pw{
+    border: 0;
+    width: 300px;
+    height: 50px;
+    font-size:15px;
+    background-color: #F2F2F2;
+    margin-bottom: 10px;
+}
+
+.log-pw::placeholder{
+    color:#611DF2;
+}
+.push{
+    display:flex;
+    justify-content: space-between;
+}
+.sign-button{
+    background-color:#611DF2;
+    color:white;
+    border:0;
+    width:150px;
+    height:50px;
+}
+
+.log-button{
+    background-color:#611DF2;
+    color:white;
+    border:0;
+    width:150px;
+    height:50px
+}
+
+.big{
+    width: 100vw;
+    height: 100vh;
+    background-color:#F2F2F2;
+}
