@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import './Detail.css'
 import HeadBar from '../HeadBar/HeadBar';
 import { wait } from '@testing-library/user-event/dist/utils';
-import { ip } from '../../server_ip';
+import { ip } from '../../server_ip.js';
 
 const regularDate = (t, mode) => {
     let date = new Date(t);

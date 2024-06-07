@@ -6,7 +6,7 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import axios from 'axios';
 import { useCookies } from "react-cookie";
 import HeadBar from '../HeadBar/HeadBar';
-import { ip } from '../../server_ip';
+import { ip } from '../../server_ip.js';
 
 function Modify() {
     const { id } = useParams();

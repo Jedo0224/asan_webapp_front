@@ -3,7 +3,7 @@ import './HeadBar.css';
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { ip } from '../../server_ip';
+import { ip } from '../../server_ip.js';
 
 function HeadBar() {
   const [cookies, setCookie, removeCookie] = useCookies(['is_login']);

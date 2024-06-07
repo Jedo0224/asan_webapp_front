@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Login.css';
 import { useCookies } from "react-cookie";
-import { ip } from '../../server_ip';
+import { ip } from '../../server_ip.js';
 
 function Login() {
     const [loginInfo, setLoginInfo] = useState({

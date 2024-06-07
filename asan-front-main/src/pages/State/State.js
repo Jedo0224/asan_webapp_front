@@ -6,13 +6,15 @@ import "react-datepicker/dist/react-datepicker.module.css";
 import HeadBar from '../HeadBar/HeadBar';
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { ip } from '../../server_ip';
+import { ip } from '../../server_ip.js';
 
 const sz = 100;
 function SearchTable() {
   const [total, setTotal] = useState(0);
 
   const [page, setPage] = useState(0);
+
+  const [connectedDeviceList, setConnectedDeviceList] = useState([]);
 
   //필터 데이터들
   const [filters, setFilters] = useState({
@@ -179,6 +181,7 @@ function SearchTable() {
               setFilteredData([...filteredData, ...response.data.result.medicalRecordNumbers]);
               setPage(page + 1);
             }
+            // console.log("setFilteredData" , response.data.result.medicalRecordNumbers)
 
 
           })
@@ -196,7 +199,37 @@ function SearchTable() {
     observer.observe(target.current);
   });
 
+  useEffect(()=> {
+    const interval = setInterval(() => {
+    const connectedDeviceData = async () => {
+      try { 
+        const response =  await axios.get(ip+"/beacon-data/getDeviceLives")
+        setConnectedDeviceList(Object.values(response.data))}
+      catch (error){ 
+        // setError(error)
+      }
+    }
+    connectedDeviceData()},5000);
 
+    return () => clearInterval(interval)
+  }, [])
+  
+ 
+
+  useEffect(() => {
+    const updatedData = filteredData.map(item => {
+      if (connectedDeviceList.includes(item.deviceName)) {
+        console.log("item",item)
+        return { ...item, connected: true };
+      } else {
+        return { ...item, connected: false };
+      }
+    });
+    setFilteredData(updatedData);
+    console.log("update fileterData ")
+  }, [connectedDeviceList]);
+
+ 
   document.title = "환자 관리";
 
 
@@ -256,6 +289,8 @@ function SearchTable() {
             <tr>
               <th className='stateNoPrint'><input id='check' type="checkbox" onChange={(e) => AllCheck(e.target.checked)} checked={checkedData.length === filteredData.length ? true : false}></input>모두 체크</th>
               <th>보조기 종류</th>
+              <th>기기 id</th>
+              <th>기기 이름</th>
               <th>병록 번호</th>
               <th>환자명</th>
               <th>성별</th>
@@ -263,6 +298,7 @@ function SearchTable() {
               <th>착용 시작</th>
               <th>남은 기간</th>
               <th>담당자</th>
+              <th>연결상태</th>
               <th className='stateNoPrint'>관리</th>
             </tr>
           </thead>
@@ -273,6 +309,8 @@ function SearchTable() {
                 <tr key={row.medicalRecordNumber} className={isChecked?'statePrint':'stateNoPrint'}>
                   <td className='stateNoPrint'><input name={row.medicalRecordNumber} type="checkbox" onChange={(e) => SingleCheck(e.target.checked, row.medicalRecordNumber)} checked={checkedData.includes(row.medicalRecordNumber) ? true : false}></input></td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.auxiliaryDeviceType}</td>
+                  <td className={isChecked?'statePrint':'stateNoPrint'}>{row.deviceId}</td>
+                  <td className={isChecked?'statePrint':'stateNoPrint'}>{row.deviceName}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.medicalRecordNumber}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.username}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.gender}</td>
@@ -280,6 +318,9 @@ function SearchTable() {
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.startDate}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.remainingDays}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.responsiblePersonName}</td>
+                  {row.connected != undefined ? <td className={isChecked?'statePrint':'stateNoPrint'}>{row.connected.toString()}</td> : "false"}
+                  
+                  {console.log(row)}
                   <td className='stateNoPrint'><NavLink to={"/detail/" + row.medicalRecordNumber} style={activeStyle}>상세내용</NavLink></td>
                 </tr>
               )
@@ -306,10 +347,34 @@ function SearchTable() {
 }
 
 
+
 const Register = () => {
+
+  
 
   const [cookies, setCookie, removeCookie] = useCookies(['is_login']);
   const [regiData, setRegiData] = useState({});
+  const [deviceList, setDeviceList] = useState([]);
+  const [error, setError] = useState({});
+  
+
+  
+  useEffect(()=> { 
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(ip + "/beacon-data/getDevices");
+        setDeviceList(response.data)
+      
+      } catch (error) {
+        setError(error)
+      }
+    };
+    fetchData()
+  },[])
+
+// console.log(deviceList)
+
+
 
   const kindList = [
     { value: "어깨", name: "어깨" },
@@ -335,6 +400,37 @@ const Register = () => {
     });
   };
 
+  const handleDeviceChange = (type1, type2,value) => {
+    console.log(value)
+    if (!value) {
+      value = null;
+
+      setRegiData({
+        ...regiData,
+        [type1]: null,
+        [type2]: null
+      });
+    }
+    else{   
+      var deviceInfo=  value.split("-")
+      var id = deviceInfo[0];  
+      var name = deviceInfo[1];  
+      
+      setRegiData({
+        ...regiData,
+        [type1]: id,
+        [type2]: name
+      });
+
+      setRegiData({
+        ...regiData,
+        [type1]: id,
+        [type2]: name
+      });
+    }
+  };
+
+
   const onSelectFile = (e) => {
     setFileData(e.target.files[0]);
   }
@@ -342,9 +438,9 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     if (regiData.medicalRecordNumber) {
-      if (!fileData) {
-        return alert('파일을 선택해주세요.');
-      } else {
+      // if (!fileData) {
+      //   return alert('파일을 선택해주세요.');
+      // } else {
         const sendData = JSON.stringify(regiData);
         axios.post(ip + '/patient/register', sendData,
           {
@@ -354,19 +450,19 @@ const Register = () => {
             },
           }
         )
-          .then((response) => {
-            let formData = new FormData();
-            formData.append('file', fileData);
-            formData.append('medicalRecordNumber', regiData.medicalRecordNumber.toString())
-            axios.post(ip + '/sensorFile/upload', formData,
-              {
-                headers: {
-                  Authorization: `Bearer ${cookies.is_login}`,
-                  "Content-Type": "multipart/form-data",
-                  "Access-Control-Allow-Origin": "*",
-                },
-              }
-            )
+          // .then((response) => {
+          //   let formData = new FormData();
+          //   formData.append('file', fileData);
+          //   formData.append('medicalRecordNumber', regiData.medicalRecordNumber.toString())
+          //   axios.post(ip + '/sensorFile/upload', formData,
+          //     {
+          //       headers: {
+          //         Authorization: `Bearer ${cookies.is_login}`,
+          //         "Content-Type": "multipart/form-data",
+          //         "Access-Control-Allow-Origin": "*",
+          //       },
+          //     }
+          //   )
               .then((response) => {
                 setFileData(null);
                 setRegiData({});
@@ -375,11 +471,11 @@ const Register = () => {
               .catch((error) => {
                 alert('서버 통신 중 오류가 발생했습니다.');
               })
-          })
+          // })
           .catch((error) => {
             alert('파일의 Columns(형식)을 확인해주세요');
           })
-      }
+      //}
     } else {
       alert('병록번호는 필수 입력입니다.');
     }
@@ -425,6 +521,21 @@ const Register = () => {
               </select>
             </div>
           </div>
+          <div className='regiInfo1first'>사용 보조기</div>
+            <div className='regiInfo2first'>
+              <select onChange={(e) => {
+                e.preventDefault();
+                handleDeviceChange('deviceId','deviceName', e.target.value);
+              }}
+                value={regiData.deviceId+"-"+regiData.deviceName}>
+                <option value={""}>선택하세요</option>
+                {deviceList.map((item) => {
+                  return <option value={item.id+"-"+item.deviceName} key={item.id}>
+                    {item.id+"-"+item.deviceName}
+                  </option>
+                })}
+              </select>
+            </div>
           <div className='regiInfoRow'>
             <div className='regiInfo1'>병록번호</div>
             <div className='regiInfo2'>
@@ -507,7 +618,7 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className='regiInfo1'>파일첨부</div>
+          {/* <div className='regiInfo1'>파일첨부</div>
           <div className='regiInfo2'>
             <div className='file-name'>{!fileData ? "파일을 업로드해주세요" : fileData.name}</div>
             <label className='file-label-upload' htmlFor="input-file">업로드</label>
@@ -517,7 +628,8 @@ const Register = () => {
               id='input-file'
               onChange={onSelectFile}
             />
-          </div>
+          </div> */}
+         
         </div>
         <button className='regiSubmit' onClick={handleSubmit}>{'환자 등록'}</button>
         <div className='danger'>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Sign.css'
-import { ip } from '../../server_ip';
+import { ip } from '../../server_ip.js';
 
 function Sign() {
 
@@ -13,6 +13,8 @@ function Sign() {
         "phoneNumber": '',
         "organization": '',
     });
+
+    console.log(info)
 
     const [checkP, setCheckP] = useState('');
 
@@ -36,6 +38,7 @@ function Sign() {
                 return alert('입력하지 않은 정보가 있습니다.');
             }
         }
+        
         axios.post(ip + '/auth/signUp',
             info)
             .then((response) => {
