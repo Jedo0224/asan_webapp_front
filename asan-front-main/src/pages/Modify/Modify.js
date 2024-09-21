@@ -21,6 +21,8 @@ function Modify() {
         email: null,
         endDate: null,
         formFactorNumber: null,
+        deviceId: null,
+        deviceName: null,
         gender: null,
         guardianName: null,
         guardianPhoneNumber: null,
@@ -53,6 +55,9 @@ function Modify() {
             }
         ).then((response) => {
             const tmpData = response.data.result;
+            
+
+
             setIndividualData(response.data.result);
             setDateData({
                 registrationDate: tmpData.registrationDate ? new Date(tmpData.registrationDate) : null,
@@ -64,7 +69,10 @@ function Modify() {
         ).catch((error) => {
             alert('데이터를 불러오는 중 오류가 발생했습니다.');
         })
-    }, []);
+    }, []); 
+
+
+    
 
 
     const regularDate = (t, mode) => {
@@ -130,6 +138,23 @@ function Modify() {
         );
     };
 
+    const [error, setError] = useState({});
+
+      
+    useEffect(()=> { 
+        const fetchData = async () => {
+
+        try {
+            const response = await axios.get(ip + "/beacon-data/getDevices");
+            setDeviceList(response.data)
+        
+        } catch (error) {
+            setError(error)
+        }
+        };
+        fetchData()
+    },[])
+
 
     const handleDetailChange = (type, value) => {
         setCheck({ ...check, info: 1 });
@@ -148,6 +173,40 @@ function Modify() {
         setCheck({ ...check, file: 1 });
         setFileData(e.target.files[0]);
     }
+
+    const [regiData, setRegiData] = useState({});
+    const [deviceList, setDeviceList] = useState([]);
+
+    const handleDeviceChange = (type1, type2,value) => {
+        // console.log(value)
+        if (!value) {
+          value = null;
+    
+          setRegiData({
+            ...regiData,
+            [type1]: null,
+            [type2]: null
+          });
+        }
+        else{   
+          var deviceInfo=  value.split("-")
+          var id = deviceInfo[0];  
+          var name = deviceInfo[1];  
+
+          
+          setRegiData({
+            ...regiData,
+            [type1]: id,
+            [type2]: name
+          });
+    
+          setRegiData({
+            ...regiData,
+            [type1]: id,
+            [type2]: name
+          });
+        }
+      };
 
     const navigate = useNavigate();
     const handleBack = () => {
@@ -257,6 +316,23 @@ function Modify() {
                             <div className='patient1'>병록번호</div>
                             <div className='patient3'>
                                 <input type='text' value={individualData.medicalRecordNumber} disabled></input>
+                            </div>
+                        </div>
+                         <div className='patientRow'>
+                            <div className='patient1first'>사용 보조기</div>
+                            <div className='patient2first'>
+                            <select onChange={(e) => {
+                                e.preventDefault();
+                                handleDeviceChange('deviceId','deviceName', e.target.value);
+                            }}
+                                value={individualData.deviceId + "-" + individualData.deviceName }>
+                                <option value={""}>선택하세요</option>
+                                {deviceList.map((item) => {
+                                return <option value={item.id+"-"+item.deviceName} key={item.id}>
+                                    {item.id+"-"+item.deviceName}
+                                </option>
+                                })}
+                            </select>
                             </div>
                         </div>
                         <div className='patientRow'>

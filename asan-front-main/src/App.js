@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login"
 import Modify from "./pages/Modify/Modify"
 import Detail from "./pages/Detail/Detail"
 import Sign from "./pages/Sign/Sign"
+import LogDetail from "./pages/LogDetail/LogDetail"
 import {Route, Routes} from "react-router-dom"
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/modify/:id" element={<Modify/>}/>
       <Route path="/detail/:id" element={<Detail/>}/>
       <Route path="/sign" element={<Sign/>}/>
+      <Route path="/logdetail/:id/:disconnectCount" element={<LogDetail/>}/>
     </Routes>
   );
 }

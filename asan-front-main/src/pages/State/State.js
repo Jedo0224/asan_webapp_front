@@ -142,6 +142,7 @@ function SearchTable() {
   }
 
   const activeStyle = {
+    textDecoration: 'none',
     color: "#6392ff"
   };
 
@@ -154,6 +155,7 @@ function SearchTable() {
   };
 
   const [cookies, setCookie, removeCookie] = useCookies(['is_login']);
+  const previousFilteredData = useRef([]);
 
   let observer = new IntersectionObserver(entries => {
 
@@ -200,33 +202,44 @@ function SearchTable() {
   });
 
   useEffect(()=> {
-    const interval = setInterval(() => {
     const connectedDeviceData = async () => {
       try { 
         const response =  await axios.get(ip+"/beacon-data/getDeviceLives")
-        setConnectedDeviceList(Object.values(response.data))}
+        setConnectedDeviceList(response.data)}
+      
       catch (error){ 
         // setError(error)
       }
     }
-    connectedDeviceData()},5000);
+    connectedDeviceData();
+
+    
+
+    const interval = setInterval(() => {
+    
+    connectedDeviceData()},2000);
 
     return () => clearInterval(interval)
   }, [])
   
- 
+  
 
   useEffect(() => {
     const updatedData = filteredData.map(item => {
-      if (connectedDeviceList.includes(item.deviceName)) {
-        console.log("item",item)
-        return { ...item, connected: true };
+      const previousItem = previousFilteredData.current.find(prev => prev.deviceName === item.deviceName);
+      const wasConnected = previousItem ? previousItem.connected === "O" : false;
+      const isConnected = Object.keys(connectedDeviceList).includes(item.deviceName);
+
+      if (isConnected) {
+        return { ...item, connected: "O", disconnectCount: item.disconnectCount || 0 };
       } else {
-        return { ...item, connected: false };
+        const newDisconnectCount = wasConnected ? (item.disconnectCount || 0) + 1 : (item.disconnectCount || 0);
+        return { ...item, connected: "X", disconnectCount: newDisconnectCount };
       }
     });
+
     setFilteredData(updatedData);
-    console.log("update fileterData ")
+    previousFilteredData.current = updatedData;
   }, [connectedDeviceList]);
 
  
@@ -298,15 +311,18 @@ function SearchTable() {
               <th>착용 시작</th>
               <th>남은 기간</th>
               <th>담당자</th>
-              <th>연결상태</th>
+              <th>연결 상태</th>
+              <th>요약</th>
               <th className='stateNoPrint'>관리</th>
             </tr>
           </thead>
           <tbody className="userTableBody">
             {filteredData.map((row) => {
               const isChecked = checkedData.includes(row.medicalRecordNumber);
+              const rowClassName = row.connected === "X" ? "redRow" : "";
+              // console.log("rowClassName",rowClassName)
               return (
-                <tr key={row.medicalRecordNumber} className={isChecked?'statePrint':'stateNoPrint'}>
+                <tr key={row.medicalRecordNumber} className={`${isChecked ? 'statePrint' : 'stateNoPrint'} ${rowClassName}`}>
                   <td className='stateNoPrint'><input name={row.medicalRecordNumber} type="checkbox" onChange={(e) => SingleCheck(e.target.checked, row.medicalRecordNumber)} checked={checkedData.includes(row.medicalRecordNumber) ? true : false}></input></td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.auxiliaryDeviceType}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.deviceId}</td>
@@ -318,9 +334,13 @@ function SearchTable() {
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.startDate}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.remainingDays}</td>
                   <td className={isChecked?'statePrint':'stateNoPrint'}>{row.responsiblePersonName}</td>
-                  {row.connected != undefined ? <td className={isChecked?'statePrint':'stateNoPrint'}>{row.connected.toString()}</td> : "false"}
+                  {row.connected != undefined ? <td className={isChecked?'statePrint':'stateNoPrint'}>{row.connected.toString()}</td> : "X"}
                   
-                  {console.log(row)}
+                  <td className='stateNoPrint'>
+                      <NavLink to={`/logdetail/${row.medicalRecordNumber}/${row.disconnectCount}`} style={activeStyle}>
+                          {row.disconnectCount}
+                      </NavLink>
+                  </td>
                   <td className='stateNoPrint'><NavLink to={"/detail/" + row.medicalRecordNumber} style={activeStyle}>상세내용</NavLink></td>
                 </tr>
               )
@@ -401,7 +421,7 @@ const Register = () => {
   };
 
   const handleDeviceChange = (type1, type2,value) => {
-    console.log(value)
+    // console.log(value)
     if (!value) {
       value = null;
 
@@ -636,7 +656,7 @@ const Register = () => {
           <div>주의사항</div>
           <ol className='dangerList'>
             <li>병록번호는 필수 입력이며 다른 환자와 중복된 값을 가질 수 없습니다.</li>
-            <li>csv파일을 업로드하고 환자 등록 버튼을 누르면 분석이 시작됩니다.</li>
+            <li>csv파일은 앱에서 서버로 자동으로 업로드됩니다 .</li>
             <li>환자의 자세한 정보는 환자 관리 부분에서 수정, 추가하실 수 있습니다.</li>
             <li>계속 분석이 실패한다면 문의 부탁드립니다.</li>
             <li>엑셀파일만 업로드 가능하며 첫번째 시트(Sheet1)에 데이터가 있어야 합니다.</li>
